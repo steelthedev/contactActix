@@ -83,7 +83,7 @@ async fn main() -> std::io::Result<()> {
             .service(send_contact)
             .app_data(web::Data::from(email_config.clone()))
     })
-    .bind(("127.0.0.1", port))?
+    .bind(("0.0.0.0", port))?
     .workers(2)
     .run()
     .await
