@@ -1,0 +1,10 @@
+[package]
+name = "contactActix"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+actix-web = "4"
+serde = { version = "1.0.197", features = ["derive"] }
+lettre = "0.10"
+dotenv = "0.15"
