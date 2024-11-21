@@ -1,6 +1,8 @@
 use std::{env, sync::Arc};
 
+use actix_cors::Cors;
 use actix_web::{
+    http,
     web::{self},
     App, HttpResponse, HttpServer, Responder,
 };
@@ -79,7 +81,17 @@ async fn main() -> std::io::Result<()> {
     });
 
     HttpServer::new(move || {
+        let cors = Cors::default()
+            .allow_any_origin()
+            .allowed_methods(vec!["POST"])
+            .allowed_headers(vec![
+                http::header::AUTHORIZATION,
+                http::header::CONTENT_TYPE,
+            ])
+            .max_age(3600);
+
         App::new()
+            .wrap(cors)
             .service(send_contact)
             .app_data(web::Data::from(email_config.clone()))
     })
